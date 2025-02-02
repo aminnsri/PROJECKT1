@@ -1,32 +1,193 @@
-# Prerequisites
-*.d
+#include<iostream>
+#include<string>
+#include<iomanip>
+#include<algorithm>
+#include <limits>
+using namespace std;
+struct information
+{
+string name;//اسم
+string family;//فامیل
+string field;//رشته
+long long int number;//شماره دانشجویی
+string lesson[10];//نام درس
+int vahed[10];//تعداد واحد
+float score[10];
+float avrrag;
+int n;
+};
+void bubblesort(information k[],int num);
+information read();
+void write1(information k);//A
+void write2(information k);//B
+void write3(information k);//3
+int main(){
+int num=0,n=0;    
+cout<<"Enter the number of student:  ";
+cin>>num;
+information k[num];
+for (int i=0;i<num;i++)
+{
+cout<<"student number"<<i+1<<endl;
+ k[i]=read();
+}
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+bubblesort(k,num);
+int ch1;  
+int ch2; 
+lbl_for:
+cout<<"please select one option !"<<endl;
+cout<<"1:List of student "<<endl;
+cout<<"2:search by Name"<<endl;
+cout<<"3:search by ID"<<endl;
+cout<<"4:Exit"<<endl;
+cin>>ch1;
+if(ch1==1){
+cout<<"please selsect one option!"<<endl;
+cout<<"1:sorting by grade."<<endl;
+cout<<"2:sorting by Major."<<endl;
+cin>>ch2;
+if(ch2==1){
+for(int h=0;h<num;++h)
+write1(k[h]);
+goto lbl_for;
+}
+else if(ch2==2){
+string f;
+int x1=0;
+cout<<"Enter Magor :";
+cin>>f;
+for(int y=0;num>y;++y){  
+if (f==k[y].field){
+++x1;
+write2(k[y]);}
+                       }
+if(x1==0)
+cout<<"not found!"<<endl;
+else
+goto lbl_for;
+}
+}
 
-# Precompiled Headers
-*.gch
-*.pch
+else if (ch1==2){
+string g;
+int x2=0;
+cout<<"Enter Name :";
+cin>>g;
+for(int y=0;num>y;++y){  
+if (g==k[y].name){
+++x2;
+write3(k[y]);  
+for(int g=0;k->n>g   ;++g){
+cout<<"lesson: "<<k[y].lesson[g]<<"   vahed: "<<k[y].vahed[g]<<"   Score: "<<k[y].score[g]<<endl;
+cout<<"**********************************************"<<endl;
+ }}
+                       }
+if(x2==0)
+cout<<"not found!"<<endl;
+else
+goto lbl_for;
+}
+else if (ch1==3){
+int p;
+int x3=0;
+cout<<"Enter ID :";
+cin>>p;
+for(int y=0;num>y;++y){  
+if (p==k[y].number){
+++x3;
+write3(k[y]);  
+for(int g=0;k->n>g   ;++g){
+cout<<"lesson: "<<k[y].lesson[g]<<"   vahed: "<<k[y].vahed[g]<<"   Score: "<<k[y].score[g]<<endl;
+cout<<"**********************************************"<<endl;
+ }}
+                       }
+if(x3==0)
+cout<<"not found!"<<endl;
+else
+goto lbl_for;
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
 
-# Fortran module files
-*.mod
-*.smod
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
 
-# Executables
-*.exe
-*.out
-*.app
+
+
+}
+else if (ch1==4){
+cout<<"bye";  }  
+else
+cout<<"error";
+
+}
+
+information read( ){
+information k;
+int n;
+float s=0,m=0;
+float Avrage=0;
+cout<<"Enter name:  ";
+cin>>k.name;
+cout<<"Enter family:  ";
+cin>>k.family;
+cout<<"Enter field:  ";
+cin>>k.field;
+cout<<"Enter number:   ";
+cin>>k.number;
+cout<<endl;
+cout<<"Enter number of lessons: ";
+cin>>k.n;
+for(int j=0;k.n>j;++j){
+cout<<"Enter the name of the lesson: ";
+cin>>k.lesson[j];
+cout<<"Enter vahed: ";
+cin>>k.vahed[j];
+cout<<"Enter score: ";
+cin>>k.score[j];
+s=s+(k.score[j])*(k.vahed[j]);
+m=m+k.vahed[j];
+}
+Avrage=s/m;
+k.avrrag=Avrage;
+return k;
+}
+
+void  bubblesort (information k[],int num)
+{    
+int i, j;
+for(i = 0; i < num; i++)
+{
+for(j = 0; j < num-i-1; j++)
+{
+if( k[j].avrrag < k[j+1].avrrag)
+{information temp;
+temp = k[j];
+k[j] = k[j+1];
+k[j+1] = temp;
+} 
+}
+}
+
+}
+
+void write1(information k)//خروجیA1
+{
+cout<<"name: "<<k.name<<"  family: "<<k.family<<"  ID: "<<k.number<<"  moadel: "<<k.avrrag<<endl;
+cout<<"************************************************"<<endl;
+}
+void write2(information k)//خروجی1B
+{
+cout<<k.field<<endl;
+cout<<"name: "<<k.name<<"  family: "<<k.family<<"  ID: "<<k.number<<"  moadel: "<<k.avrrag<<endl;
+cout<<"************************************************"<<endl;
+}
+void write3(information k)//خروجی2
+{
+cout<<"name: "<<k.name<<"  family: "<<k.family<<"  ID: "<<k.number<<"  moadel: "<<k.avrrag<<endl;
+cout<<"************************************************"<<endl;
+}
+
+
+
+
+
+
