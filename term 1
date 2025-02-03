@@ -16,6 +16,7 @@ float avrrag;
 int n;
 };
 void bubblesort(information k[],int num);
+void delet(information[],int & num,int i);
 information read();
 void write1(information k);//A
 void write2(information k);//B
@@ -44,7 +45,8 @@ cout<<"please select one option !"<<endl;
 cout<<"1:List of student "<<endl;
 cout<<"2:search by Name"<<endl;
 cout<<"3:search by ID"<<endl;
-cout<<"4:Exit"<<endl;
+cout<<"4:delete the students"<<endl;
+cout<<"5:Exit"<<endl;
 cout<<"Enter:";
 while(!(cin>>ch1)){
 cout << "Error! "<< endl;
@@ -132,10 +134,36 @@ else
 goto lbl_for;
 }
 
-else if (ch1==4){
+else if(ch1==4){
+long long int a;
+int m=0;
+agn:
+cout << "Enter ID: ";
+while(!(cin >> a)){
+cout << "Error! "<< endl;
+cin.clear();
+cin.ignore(numeric_limits<streamsize>::max(), '\n');
+cout << "Enter ID: ";
+}
+for (int i = 0; i < num; ++i) {
+if (a == k[i].ID){
+++m;
+delet(k,num,i);
+goto lbl_for;
+}
+}
+if(m==0){
+cout<<"not found!"<<endl;
+goto agn;
+}
+
+}
+
+else if (ch1==5){
 cout<<"bye";  }  
 
 else{
+
 cout<<"error"<<endl;
 goto lbl_for;
 
@@ -214,20 +242,31 @@ k[j+1] = temp;
 
 void write1(information k)//خروجیA1
 {
-cout<<"name: "<<k.name<<"  family: "<<k.family<<"  ID: "<<k.ID<<"  moadel: "<<k.avrrag<<endl;
+cout<<"name: "<<k.name<<"  family: "<<k.family<<"  ID: "<<k.ID<<"  moadel: "<<fixed<<setprecision(4)<<k.avrrag<<endl;
 cout<<"************************************************"<<endl;
 }
 void write2(information k)//خروجی1B
 {
 cout<<k.field<<endl;
-cout<<"name: "<<k.name<<"  family: "<<k.family<<"  ID: "<<k.ID<<"  moadel: "<<k.avrrag<<endl;
+cout<<"name: "<<k.name<<"  family: "<<k.family<<"  ID: "<<k.ID<<"  moadel: "<<fixed<<setprecision(4)<<k.avrrag<<endl;
 cout<<"************************************************"<<endl;
 }
 void write3(information k)//خروجی2
 {
-cout<<"name: "<<k.name<<"  family: "<<k.family<<"  ID: "<<k.ID<<"  moadel: "<<k.avrrag<<endl;
+cout<<"name: "<<k.name<<"  family: "<<k.family<<"  ID: "<<k.ID<<"  moadel: "<<fixed<<setprecision(4)<<k.avrrag<<endl;
 cout<<"************************************************"<<endl;
 }
+
+void delet(information k[],int & num,int i) {       
+for (int j = i; j < num - 1; ++j) {
+k[j] = k[j + 1];
+}
+cout<<"student with ID:  "<<k->ID<<"  has been deleted"<<endl;
+num--; 
+
+}
+
+
 
 
 
