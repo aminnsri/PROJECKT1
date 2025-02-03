@@ -1,7 +1,6 @@
 #include<iostream>
 #include<string>
 #include<iomanip>
-#include<algorithm>
 #include <limits>
 using namespace std;
 struct information
@@ -9,7 +8,7 @@ struct information
 string name;//اسم
 string family;//فامیل
 string field;//رشته
-long long int number;//شماره دانشجویی
+long long int ID;//شماره دانشجویی
 string lesson[10];//نام درس
 int vahed[10];//تعداد واحد
 float score[10];
@@ -23,8 +22,13 @@ void write2(information k);//B
 void write3(information k);//3
 int main(){
 int num=0,n=0;    
-cout<<"Enter the number of student:  ";
-cin>>num;
+cout<<"Enter the number of students:  ";
+while (!(cin >> num)) {
+cout << "Error!"<< endl;
+cin.clear();
+cin.ignore(numeric_limits<streamsize>::max(), '\n');
+cout << "Enter the number of students:  ";
+    }
 information k[num];
 for (int i=0;i<num;i++)
 {
@@ -41,7 +45,13 @@ cout<<"1:List of student "<<endl;
 cout<<"2:search by Name"<<endl;
 cout<<"3:search by ID"<<endl;
 cout<<"4:Exit"<<endl;
-cin>>ch1;
+cout<<"Enter:";
+while(!(cin>>ch1)){
+cout << "Error! "<< endl;
+cin.clear();
+cin.ignore(numeric_limits<streamsize>::max(), '\n');
+cout << "Enter:";
+}
 if(ch1==1){
 cout<<"please selsect one option!"<<endl;
 cout<<"1:sorting by grade."<<endl;
@@ -55,6 +65,7 @@ goto lbl_for;
 else if(ch2==2){
 string f;
 int x1=0;
+label_A1:
 cout<<"Enter Magor :";
 cin>>f;
 for(int y=0;num>y;++y){  
@@ -62,8 +73,9 @@ if (f==k[y].field){
 ++x1;
 write2(k[y]);}
                        }
-if(x1==0)
+if(x1==0){
 cout<<"not found!"<<endl;
+goto label_A1;}
 else
 goto lbl_for;
 }
@@ -72,6 +84,7 @@ goto lbl_for;
 else if (ch1==2){
 string g;
 int x2=0;
+label_A2:
 cout<<"Enter Name :";
 cin>>g;
 for(int y=0;num>y;++y){  
@@ -83,18 +96,27 @@ cout<<"lesson: "<<k[y].lesson[g]<<"   vahed: "<<k[y].vahed[g]<<"   Score: "<<k[y
 cout<<"**********************************************"<<endl;
  }}
                        }
-if(x2==0)
+if(x2==0){
 cout<<"not found!"<<endl;
+goto label_A2;}
 else
 goto lbl_for;
 }
+
 else if (ch1==3){
 int p;
 int x3=0;
+label_A3:
 cout<<"Enter ID :";
-cin>>p;
+while(!(cin>>p)){
+cout << "Error! "<< endl;
+cin.clear();
+cin.ignore(numeric_limits<streamsize>::max(), '\n');
+cout << "Enter ID:  ";
+}
+
 for(int y=0;num>y;++y){  
-if (p==k[y].number){
+if (p==k[y].ID){
 ++x3;
 write3(k[y]);  
 for(int g=0;k->n>g   ;++g){
@@ -102,22 +124,22 @@ cout<<"lesson: "<<k[y].lesson[g]<<"   vahed: "<<k[y].vahed[g]<<"   Score: "<<k[y
 cout<<"**********************************************"<<endl;
  }}
                        }
-if(x3==0)
+if(x3==0){
 cout<<"not found!"<<endl;
+goto label_A3;
+}
 else
 goto lbl_for;
-
-
-
-
-
-
 }
+
 else if (ch1==4){
 cout<<"bye";  }  
-else
-cout<<"error";
 
+else{
+cout<<"error"<<endl;
+goto lbl_for;
+
+};
 }
 
 information read( ){
@@ -131,18 +153,39 @@ cout<<"Enter family:  ";
 cin>>k.family;
 cout<<"Enter field:  ";
 cin>>k.field;
-cout<<"Enter number:   ";
-cin>>k.number;
-cout<<endl;
+cout<<"Enter ID:   ";
+while(!(cin>>k.ID)){
+cout << "Error! "<< endl;
+cin.clear();
+cin.ignore(numeric_limits<streamsize>::max(), '\n');
+cout << "Enter ID:  ";
+}
 cout<<"Enter number of lessons: ";
-cin>>k.n;
+while(!(cin>>k.n)){
+cout << "Error! "<< endl;
+cin.clear();
+cin.ignore(numeric_limits<streamsize>::max(), '\n');
+cout << "Enter number of lessons:";
+}
+
 for(int j=0;k.n>j;++j){
 cout<<"Enter the name of the lesson: ";
 cin>>k.lesson[j];
+
 cout<<"Enter vahed: ";
-cin>>k.vahed[j];
+while(!(cin>>k.vahed[j])){
+cout << "Error! "<< endl;
+cin.clear();
+cin.ignore(numeric_limits<streamsize>::max(), '\n');
+cout << "Enter vahed:  ";
+}
 cout<<"Enter score: ";
-cin>>k.score[j];
+while(!(cin>>k.score[j])){
+cout << "Error! "<< endl;
+cin.clear();
+cin.ignore(numeric_limits<streamsize>::max(), '\n');
+cout << "Enter the scores of student:  ";
+}
 s=s+(k.score[j])*(k.vahed[j]);
 m=m+k.vahed[j];
 }
@@ -171,20 +214,28 @@ k[j+1] = temp;
 
 void write1(information k)//خروجیA1
 {
-cout<<"name: "<<k.name<<"  family: "<<k.family<<"  ID: "<<k.number<<"  moadel: "<<k.avrrag<<endl;
+cout<<"name: "<<k.name<<"  family: "<<k.family<<"  ID: "<<k.ID<<"  moadel: "<<k.avrrag<<endl;
 cout<<"************************************************"<<endl;
 }
 void write2(information k)//خروجی1B
 {
 cout<<k.field<<endl;
-cout<<"name: "<<k.name<<"  family: "<<k.family<<"  ID: "<<k.number<<"  moadel: "<<k.avrrag<<endl;
+cout<<"name: "<<k.name<<"  family: "<<k.family<<"  ID: "<<k.ID<<"  moadel: "<<k.avrrag<<endl;
 cout<<"************************************************"<<endl;
 }
 void write3(information k)//خروجی2
 {
-cout<<"name: "<<k.name<<"  family: "<<k.family<<"  ID: "<<k.number<<"  moadel: "<<k.avrrag<<endl;
+cout<<"name: "<<k.name<<"  family: "<<k.family<<"  ID: "<<k.ID<<"  moadel: "<<k.avrrag<<endl;
 cout<<"************************************************"<<endl;
 }
+
+
+
+
+
+
+
+
 
 
 
