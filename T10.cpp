@@ -58,7 +58,17 @@ if(ch1==1){
 cout<<"please selsect one option!"<<endl;
 cout<<"1:sorting by grade."<<endl;
 cout<<"2:sorting by Major."<<endl;
-cin>>ch2;
+
+while(!(cin>>ch2)){
+cout << "Error! "<< endl;
+cin.clear();
+cin.ignore(numeric_limits<streamsize>::max(), '\n');
+cout << "please selsect one option: "<<endl;
+}
+
+
+
+
 if(ch2==1){
 for(int h=0;h<num;++h)
 write1(k[h]);
